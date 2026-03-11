@@ -1,0 +1,32 @@
+2026-03-05 09:42:28,473 - INFO - Incoming request: price=200.0 freight_value=40.0 delivery_time=7.0
+2026-03-05 09:50:54,795 - INFO - Incoming request: price=200.0 freight_value=40.0 delivery_time=7.0
+2026-03-05 09:55:50,735 - INFO - Incoming request: price=200.0 freight_value=40.0 delivery_time=7.0
+2026-03-05 09:55:50,755 - INFO - Prediction result: (np.int64(0), np.float64(0.08))
+2026-03-05 10:00:52,420 - INFO - Incoming request: price=200.0 freight_value=40.0 delivery_time=7.0
+2026-03-05 10:00:52,439 - INFO - Prediction result: {'prediction': 0, 'probability': 0.08}
+2026-03-05 10:09:47,901 - INFO - Incoming request: price=200.0 freight_value=40.0 delivery_time=7.0
+2026-03-05 10:09:47,920 - INFO - Prediction result: {'prediction': 0, 'probability': 0.08}
+2026-03-05 10:11:10,861 - INFO - Incoming request: price=200.0 freight_value=40.0 delivery_time=7.0
+2026-03-05 10:11:10,880 - INFO - Prediction result: {'prediction': 0, 'probability': 0.08}
+2026-03-05 10:11:33,646 - INFO - Incoming request: price=200.0 freight_value=40.0 delivery_time=7.0
+2026-03-05 10:11:33,664 - INFO - Prediction result: {'prediction': 0, 'probability': 0.08}
+2026-03-06 12:48:25,155 - INFO - Incoming request: price=150.0 freight_value=20.0 delivery_time=5.0
+2026-03-06 12:48:25,209 - INFO - Prediction result: {'prediction': 0, 'probability': 0.0}
+2026-03-06 12:48:43,244 - INFO - Incoming request: price=150.0 freight_value=20.0 delivery_time=5.0
+2026-03-06 12:48:43,284 - INFO - Prediction result: {'prediction': 0, 'probability': 0.0}
+2026-03-06 12:49:17,525 - INFO - Incoming request: price=350.0 freight_value=20.0 delivery_time=5.0
+2026-03-06 12:49:17,574 - INFO - Prediction result: {'prediction': 0, 'probability': 0.0}
+2026-03-06 12:49:51,867 - INFO - Incoming request: price=350.0 freight_value=20.0 delivery_time=5.0
+2026-03-06 12:49:51,906 - INFO - Prediction result: {'prediction': 0, 'probability': 0.0}
+2026-03-06 12:49:57,639 - INFO - Incoming request: price=50.0 freight_value=20.0 delivery_time=5.0
+2026-03-06 12:49:57,679 - INFO - Prediction result: {'prediction': 0, 'probability': 0.05274186193078978}
+2026-03-06 12:50:03,139 - INFO - Incoming request: price=50.0 freight_value=20.0 delivery_time=50.0
+2026-03-06 12:50:03,205 - INFO - Prediction result: {'prediction': 1, 'probability': 0.8093010554949122}
+2026-03-06 12:58:30,012 - INFO - Incoming request: price=400.0 freight_value=20.0 delivery_time=50.0
+2026-03-06 12:58:30,044 - INFO - Prediction result: {'prediction': 1, 'probability': 0.525}
+2026-03-06 13:03:53,116 - INFO - Incoming request: price=400.0 freight_value=20.0 delivery_time=50.0
+2026-03-06 13:03:53,162 - INFO - Prediction result: {'prediction': 1, 'probability': 0.525}
+2026-03-06 13:04:13,416 - INFO - Incoming request: price=200.0 freight_value=20.0 delivery_time=50.0
+2026-03-06 13:04:13,447 - INFO - Prediction result: {'prediction': 1, 'probability': 0.745}
+2026-03-06 13:04:23,098 - INFO - Incoming request: price=200.0 freight_value=20.0 delivery_time=10.0
+2026-03-06 13:04:23,127 - INFO - Prediction result: {'prediction': 0, 'probability': 0.09017901855300987}
