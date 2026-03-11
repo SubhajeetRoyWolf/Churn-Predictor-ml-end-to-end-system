@@ -9,7 +9,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def load_data():
     # Looks for the CSV in the same folder as the script
-    csv_path = os.path.join(BASE_DIR, "cleaned_olist_master.csv")
+    csv_path = os.path.join(BASE_DIR, "sample_data.csv")
     df = pd.read_csv(csv_path)
     return df
 
@@ -42,4 +42,5 @@ def run_pipeline():
     save_model(model)
 
 if __name__ == "__main__":
+
     run_pipeline()
