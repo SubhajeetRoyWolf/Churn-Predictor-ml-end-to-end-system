@@ -5,7 +5,6 @@ An end-to-end Machine Learning pipeline to predict customer churn risk (Low Revi
 
 ## 📸 Dashboard Overview
 > <img width="955" height="401" alt="image" src="https://github.com/user-attachments/assets/07f8fdb9-f824-48a2-b6bf-8d013612eb8d" />
- *(Tip: Capture your browser at http://localhost:8501 after clicking 'Predict')*
 
 ---
 
@@ -28,7 +27,6 @@ The model predicts the probability of a **"Low Review"** (Review Score ≤ 2), w
 * **Features**: `price`, `freight_value`, `delivery_time`.
 * **Tracking**: All hyperparameters and metrics are logged in MLflow for full reproducibility.
 
-> > *(Tip: Capture your browser at http://localhost:5000 showing your best run)*
 
 ---
 
