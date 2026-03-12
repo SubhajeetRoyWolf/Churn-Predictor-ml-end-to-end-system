@@ -61,6 +61,8 @@ docker-compose up --build
 
 Note : 
 🛠️ Training the Model
+If it need to retrain the model locally:
+Ensure sample.csv is in the root directory.
 
 Run the training script:
 Bash
