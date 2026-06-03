@@ -4,6 +4,5 @@ __pycache__/
 .env
 mlruns/
 venv/
-artifacts/*.png
 mlflow.db
 app.log
