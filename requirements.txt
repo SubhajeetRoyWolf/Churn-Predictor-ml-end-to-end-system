@@ -3,6 +3,11 @@ uvicorn
 python-multipart
 scikit-learn
 pandas
+numpy
+xgboost
+shap
+mlflow
+matplotlib
 streamlit
 requests
-mlflow
+joblib

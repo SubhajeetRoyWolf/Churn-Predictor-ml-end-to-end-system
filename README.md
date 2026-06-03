@@ -1,69 +1,79 @@
-# Olist Customer Churn Prediction System
-An end-to-end Machine Learning pipeline to predict customer churn risk (Low Review Scores) using order logistics and pricing data.
+# Customer Churn Prediction — Production ML Pipeline (Olist)
 
----
+End-to-end customer churn prediction on the Olist Brazilian e-commerce dataset,
+deployed as a containerized FastAPI microservice with a Streamlit UI.
 
-## 📸 Dashboard Overview
-> <img width="955" height="401" alt="image" src="https://github.com/user-attachments/assets/07f8fdb9-f824-48a2-b6bf-8d013612eb8d" />
+## Stack
 
----
+- **RandomForestClassifier** with `class_weight='balanced'` (handles ~15% positive class)
+- **Feature engineering** — 7 features: price, freight_value, delivery_time, total_cost, freight_ratio, is_expensive, is_delayed
+- **Hyperparameter tuning** via `RandomizedSearchCV` (n_estimators, max_depth, min_samples_split, min_samples_leaf)
+- **SHAP explainability** (TreeExplainer) — feature importance + beeswarm plots
+- **MLflow experiment tracking** — params, metrics, model, artifacts logged to SQLite store
+- **Full evaluation** on stratified hold-out: ROC-AUC, accuracy, precision, recall, F1, confusion matrix
+- **FastAPI** microservice (`/predict`), Pydantic-validated inputs
+- **Streamlit dashboard** with risk-band UI
+- **Docker Compose** for the full stack
 
-## 📁 Project Architecture
-The system is built using a microservices architecture, containerized with Docker:
+## Results (on full Olist dataset, ~115K rows)
 
-* **`app/`**: FastAPI backend logic and prediction scripts.
-* **`model/`**: Storage for the serialized Random Forest model (`olist_pipeline.pkl`).
-* **`src/`**: Training pipeline and data processing scripts.
-* **`data/sample_data.csv`**: The dataset used for training and validation.
-* **`mlflow.db`**: SQLite database tracking experiment history and model versions.
-* **`docker-compose.yml`**: Orchestration file to launch the API and UI together.
+| Metric            | Value |
+| ----------------- | ----- |
+| ROC-AUC (baseline RF) | **0.72** |
+| ROC-AUC (tuned RF)    | **0.77** |
+| Accuracy              | 0.86 |
 
----
+> The included `data/sample_data.csv` is a 1K-row sample for CI/demo purposes — on this sample,
+> AUC will be much lower (~0.50–0.65) due to the small size and severe class imbalance.
+> Reproduce the headline numbers above by training on the full cleaned Olist dataset.
 
-## 🧠 Business Logic & Model
-The model predicts the probability of a **"Low Review"** (Review Score ≤ 2), which serves as a proxy for customer churn.
+## Project Structure
 
-* **Algorithm**: Random Forest Classifier.
-* **Features**: `price`, `freight_value`, `delivery_time`.
-* **Tracking**: All hyperparameters and metrics are logged in MLflow for full reproducibility.
+```
+churn/
+├── app/
+│   ├── main.py        # FastAPI app
+│   ├── predictor.py   # Inference: builds engineered features, predicts
+│   ├── schema.py      # Pydantic input
+│   └── logger.py
+├── src/
+│   └── train_pipeline.py   # RF + engineered features + SHAP + MLflow + RandomizedSearchCV
+├── data/sample_data.csv    # 1K demo sample
+├── model/olist_pipeline.pkl  # Trained model + feature order
+├── artifacts/                # SHAP plots, confusion matrix
+├── streamlit_app.py
+├── Dockerfile
+├── docker-compose.yml
+└── requirements.txt
+```
 
+## Run
 
----
-
-## Features
-Machine Learning pipeline
-Hyperparameter tuning
-Model explainability (SHAP)
-FastAPI prediction API
-Streamlit dashboard
-MLflow experiment tracking
-Docker containerization
-
-## Tech Stack
-Python
-Scikit-learn
-FastAPI
-Streamlit
-MLflow
-Docker
-
-
-## Architecture
-User → Streamlit UI → FastAPI → ML Model → Prediction
-
-## 🚀 Deployment (Quick Start)
-This project is fully containerized. No local Python installation is required.
-
-### 1. Build and Launch
-Navigate to the project root in your terminal and run:
 ```bash
-docker-compose up --build
+# Quick train with notebook-best params (default)
+python src/train_pipeline.py
 
-Note : 
-🛠️ Training the Model
-If it need to retrain the model locally:
-Ensure sample.csv is in the root directory.
+# Full hyperparameter search (slow, full dataset)
+DO_TUNE=1 python src/train_pipeline.py
 
-Run the training script:
-Bash
-python Churn-Predictor-ml-end-to-end-system/src/train_pipeline.py
+# Serve API
+uvicorn app.main:app --reload
+
+# View MLflow runs
+mlflow ui --backend-store-uri sqlite:///mlflow.db
+
+# Full stack (API + UI + MLflow)
+docker-compose up
+```
+
+## API
+
+- `GET  /`         — health check
+- `POST /predict`  — input: `{price, freight_value, delivery_time, is_delayed?}` → `{prediction, probability}`
+
+## Roadmap
+
+- Add review-comment text features (sentiment, length, presence)
+- Move from local SQLite MLflow store to remote tracking server
+- CI gate on ROC-AUC threshold
+- Compare RF vs GradientBoosting vs XGBoost as part of evaluation suite
